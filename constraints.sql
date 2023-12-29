@@ -1,6 +1,9 @@
 # gia cua san pham khong duoc nho hon 0
 ALTER TABLE san_pham ADD CONSTRAINT c_sp_gia CHECK (gia >= 0);
 
+# ma mau sac phai co dang #xxxxxx voi moi cap x so thap luc phan co gia tri tu 00 den ff
+ALTER TABLE thuoc_tinh ADD CONSTRAINT c_tt_ma_mau CHECK (mau_sac REGEXP '^#[a-zA-Z0-9]{6}$');
+
 # so luong san pham con lai bang tong so luong san pham con lai ung voi moi cap mau sac - kich co di kem voi san pham do
 DELIMITER //
 CREATE TRIGGER t_check_slsp_ins_sp
