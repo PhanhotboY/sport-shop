@@ -66,12 +66,12 @@ BEGIN
 	DECLARE total DECIMAL(10, 2);
     DECLARE percent DECIMAL(5, 2);
     
-    SELECT COALESCE(km.phan_tram, 0) INTO percent
+    SELECT km.phan_tram INTO percent
     FROM san_pham sp, km_lsp kl, khuyen_mai km
     WHERE sp.id = id_sp AND sp.id_lsp = kl.id_lsp AND kl.id_km = km.id
     AND (km.ngay_bd <= ngay_dat AND ngay_dat <= km.ngay_kt);
     
-    SELECT sp.gia * sl / 100 * (100 - percent) INTO total
+    SELECT sp.gia * sl / 100 * (100 - COALESCE(percent, 0)) INTO total
     FROM san_pham sp
     WHERE sp.id = id_sp;
     
