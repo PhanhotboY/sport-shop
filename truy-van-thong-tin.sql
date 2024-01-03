@@ -122,22 +122,10 @@ CREATE FUNCTION cal_sp_tt_sl(id_sp INT, mau_sac CHAR(7), kich_co CHAR(7)) RETURN
 DETERMINISTIC
 BEGIN
     DECLARE num INT;
-    DECLARE numNhap INT;
-    DECLARE numXuat INT;
     
-    SELECT SUM(nx.so_luong) INTO numNhap
+    SELECT SUM(nx.so_luong) INTO num
     FROM nhap_xuat nx
-    WHERE tt.id_sp = id_sp AND tt.mau_sac = mau_sac AND tt.kich_co = kich_co AND nx.loai = 'nhap';
-
-    SELECT SUM(nx.so_luong) INTO numXuat
-    FROM nhap_xuat nx
-    WHERE tt.id_sp = id_sp AND tt.mau_sac = mau_sac AND tt.kich_co = kich_co AND nx.loai = 'xuat';
-
-    SET num = numNhap - numXuat;
-
-    IF num < 0 THEN
-        SET num = 0;
-    END IF;
+    WHERE tt.id_sp = id_sp AND tt.mau_sac = mau_sac AND tt.kich_co = kich_co;
     
     RETURN COALESCE(num, 0);
 END //

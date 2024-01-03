@@ -32,13 +32,12 @@ CREATE TABLE IF NOT EXISTS thuoc_tinh (
 );
 
 CREATE TABLE IF NOT EXISTS nhap_xuat (
-    id INT AUTO_INCREMENT PRIMARY KEY,
     id_sp INT NOT NULL,
     kich_co CHAR(7) NOT NULL,
     mau_sac CHAR(7) NOT NULL,
-    so_luong INT UNSIGNED NOT NULL,
-    loai ENUM('nhap', 'xuat') NOT NULL,
-    ngay_nhap_xuat TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    so_luong INT NOT NULL,
+    tg_nhap_xuat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id_sp, kich_co, mau_sac, tg_nhap_xuat)
 );
 
 CREATE TABLE IF NOT EXISTS khuyen_mai (
@@ -131,9 +130,6 @@ ALTER TABLE san_pham ADD CONSTRAINT fk_sp_lsp FOREIGN KEY (id_lsp) REFERENCES lo
 
 # thuoc_tinh
 ALTER TABLE thuoc_tinh ADD CONSTRAINT fk_tt_sp FOREIGN KEY (id_sp) REFERENCES san_pham(id) ON DELETE CASCADE;
-
-# nhap_xuat
-ALTER TABLE nhap_xuat AUTO_INCREMENT = 1000;
 
 # khuyen_mai
 ALTER TABLE khuyen_mai AUTO_INCREMENT = 1000;
